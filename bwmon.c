@@ -51,14 +51,16 @@ int main(int argc, char *argv[])
     time_t thetime;
     long int old_time;
     FILE *fp;
-    thetime = time(NULL);
-    float fsent, frecv;
+    char adapt[1024];
+    char file[1024];
     char type[2];
     char rtype[2];
-    char adapt[1024];
+    float fsent, frecv;
     int mult;
     int i;
-    char file[1024];
+    
+    thetime = time(NULL);
+    
     localtime_r(&thetime, &che);
     old_time = 100;
 
@@ -87,15 +89,12 @@ int main(int argc, char *argv[])
     printf("Beginning.\n\r\n\r");
 
     while (old_time > -10) {
-        // thetime = time(NULL);
         localtime_r(&thetime, &che);
-        // if (old_time == che.tm_sec)
-        // continue;
-        sleep(1);
+        
+        sleep(1); // Sleep for a bit before updating.
+        
         old_time = che.tm_sec;
-        // if (fp != NULL)
-        // parse_bytes(fp);
-
+        
         if ((fp = fopen("/proc/net/dev", "r")) == NULL) {
             printf("Unable to open proc file!\n\n");
             return 0;
@@ -199,7 +198,8 @@ int main(int argc, char *argv[])
 
     return 0;
 }
-
+// Fetchline: reads one line out of the given file and returns with that data.
+// Will fail gracefully if nothing is there to return.
 int fetchline(char s[], int lim, FILE * fp)
 {
     int c, i, j;
