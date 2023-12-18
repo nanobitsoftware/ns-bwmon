@@ -43,6 +43,7 @@ void
 print_cmd_error (void)
 {
   printf ("Usage: bwmon <adapter> <1000 or 1024 (for mb/kb accounting)>\r\n");
+  printf("Example: ./bwmon en01 1024\r\n./bwmon en01\r\n./bwmon en01 1000\r\n./bwmon eth1\r\n");
   return;
 }
 
